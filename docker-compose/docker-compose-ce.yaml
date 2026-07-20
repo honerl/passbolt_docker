@@ -6,7 +6,7 @@ services:
       MYSQL_RANDOM_ROOT_PASSWORD: "true"
       MYSQL_DATABASE: "passbolt"
       MYSQL_USER: "passbolt"
-      MYSQL_PASSWORD: "P4ssb0lt"
+      MYSQL_PASSWORD: "NTV360-Passbolt-Poc-2026!"
     volumes:
       - database_volume:/var/lib/mysql
 
@@ -18,10 +18,10 @@ services:
     depends_on:
       - db
     environment:
-      APP_FULL_BASE_URL: https://passbolt.local
+      APP_FULL_BASE_URL: https://passbolt.ntv360.internal
       DATASOURCES_DEFAULT_HOST: "db"
       DATASOURCES_DEFAULT_USERNAME: "passbolt"
-      DATASOURCES_DEFAULT_PASSWORD: "P4ssb0lt"
+      DATASOURCES_DEFAULT_PASSWORD: "NTV360-Passbolt-Poc-2026!"
       DATASOURCES_DEFAULT_DATABASE: "passbolt"
     volumes:
       - gpg_volume:/etc/passbolt/gpg
