@@ -14,11 +14,11 @@ services:
     image: axllent/mailpit:latest
     restart: unless-stopped
     ports:
-      - "1025:1025"
-      - "8025:8025"
+      - "1026:1025"
+      - "8026:8025"
 
   passbolt:
-    image: passbolt/passbolt:latest-ce@sha256:af3a620902a098cfd7d6eda987c6ba835422ed2f1c14f92174282255871fa44d
+    image: ntv360/passbolt-requests-poc:1.0.0
     restart: unless-stopped
 
     depends_on:
@@ -26,7 +26,8 @@ services:
       - mailpit
 
     environment:
-      APP_FULL_BASE_URL: https://passbolt.ntv360.internal
+      APP_FULL_BASE_URL: http://localhost:8081
+      MESH_CENTRAL_URL: https://mesh.n-compass.online/login?key=thentvofthe360isthe360ofthentv
 
       DATASOURCES_DEFAULT_HOST: db
       DATASOURCES_DEFAULT_USERNAME: passbolt
@@ -60,8 +61,8 @@ services:
       ]
 
     ports:
-      - "80:80"
-      - "443:443"
+      - "8081:80"
+      - "8443:443"
 
 volumes:
   database_volume:

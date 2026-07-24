@@ -1,0 +1,37 @@
+FROM composer:2 AS composer_binary
+
+FROM passbolt/passbolt:latest-ce
+
+USER root
+
+COPY --from=composer_binary /usr/bin/composer /usr/local/bin/composer
+
+WORKDIR /usr/share/php/passbolt
+
+COPY passbolt_api/composer.json composer.json
+COPY passbolt_api/config/default.php config/default.php
+COPY passbolt_api/src/BaseSolutionBootstrapper.php src/BaseSolutionBootstrapper.php
+
+COPY passbolt_api/config/Migrations/20260721120000_V5130CreateRequestsTable.php \
+    config/Migrations/20260721120000_V5130CreateRequestsTable.php
+
+COPY passbolt_api/config/Migrations/20260722120000_V5130AddDeletedToRequests.php \
+    config/Migrations/20260722120000_V5130AddDeletedToRequests.php
+
+COPY passbolt_api/plugins/PassboltCe/Requests \
+    plugins/PassboltCe/Requests
+
+RUN composer dump-autoload \
+      --no-dev \
+      --optimize \
+      --no-interaction \
+      --no-scripts \
+    && rm -f /usr/local/bin/composer \
+    && chown -R root:www-data \
+      plugins/PassboltCe/Requests \
+      config/Migrations/20260721120000_V5130CreateRequestsTable.php \
+      config/Migrations/20260722120000_V5130AddDeletedToRequests.php \
+      src/BaseSolutionBootstrapper.php \
+      config/default.php \
+      vendor/composer
+
