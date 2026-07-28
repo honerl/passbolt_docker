@@ -18,6 +18,9 @@ COPY passbolt_api/config/Migrations/20260721120000_V5130CreateRequestsTable.php 
 COPY passbolt_api/config/Migrations/20260722120000_V5130AddDeletedToRequests.php \
     config/Migrations/20260722120000_V5130AddDeletedToRequests.php
 
+COPY passbolt_api/config/Migrations/20260728120000_V5130AddWorkstationIdToProfiles.php \
+    config/Migrations/20260728120000_V5130AddWorkstationIdToProfiles.php
+
 COPY passbolt_api/plugins/PassboltCe/Requests \
     plugins/PassboltCe/Requests
 
@@ -31,6 +34,7 @@ RUN composer dump-autoload \
       plugins/PassboltCe/Requests \
       config/Migrations/20260721120000_V5130CreateRequestsTable.php \
       config/Migrations/20260722120000_V5130AddDeletedToRequests.php \
+      config/Migrations/20260728120000_V5130AddWorkstationIdToProfiles.php \
       src/BaseSolutionBootstrapper.php \
       config/default.php \
       vendor/composer
